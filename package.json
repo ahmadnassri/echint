@@ -25,7 +25,8 @@
     "url": "https://github.com/ahmadnassri/echint/issues"
   },
   "scripts": {
-    "test": "standard && node index.js"
+    "pretest": "standard",
+    "test": "node index"
   },
   "devDependencies": {
     "standard": "^3.11.1"
