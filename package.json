@@ -1,0 +1,39 @@
+{
+  "version": "1.0.0",
+  "name": "echint",
+  "description": "Quick validation of files against .editorconfig",
+  "author": "Ahmad Nassri <ahmad@ahmadnassri.com> (https://www.ahmadnassri.com/)",
+  "homepage": "https://github.com/ahmadnassri/echint",
+  "repository": "ahmadnassri/echint",
+  "license": "MIT",
+  "main": "index.js",
+  "bin": "index.js",
+  "keywords": [
+    "echint",
+    "editorconfig",
+    "lint",
+    "hint",
+    "lintspaces"
+  ],
+  "engines": {
+    "node": ">=0.10"
+  },
+  "files": [
+    "index.js"
+  ],
+  "bugs": {
+    "url": "https://github.com/ahmadnassri/echint/issues"
+  },
+  "scripts": {
+    "test": "standard && node index.js"
+  },
+  "devDependencies": {
+    "standard": "^3.11.1"
+  },
+  "dependencies": {
+    "chalk": "^1.0.0",
+    "commander": "^2.8.1",
+    "glob": "^5.0.10",
+    "lintspaces": "^0.3.2"
+  }
+}
