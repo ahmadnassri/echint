@@ -29,6 +29,21 @@ You can optionally pass one or more paths using the glob pattern:
 $ echint *.js docs/**/*.md
 ```
 
+### How do I ignore files?
+
+The path `node_modules/**` and hidden files/folders (beginning with `.`) are automatically excluded when looking for files to check.
+
+Sometimes you need to ignore additional folders or specific minfied files. To do that, add a `echint.ignore` property to `package.json`:
+
+```json
+"echint": {
+  "ignore": [
+    "**/out/**",
+    "**/coverage/**"
+  ]
+}
+```
+
 ### include in your tests
 
 1. Add it to `package.json`

@@ -4,6 +4,8 @@
 
 var chalk = require('chalk')
 var cmd = require('commander')
+var path = require('path')
+var findRoot = require('find-root')
 var fs = require('fs')
 var glob = require('glob')
 var pkg = require('./package.json')
@@ -40,11 +42,30 @@ var validator = new Validator({
   ]
 })
 
+var root
+
+try {
+  root = findRoot(process.cwd())
+} catch (e) {}
+
+if (root) {
+  // Add ignore patterns from the closest `package.json`
+  try {
+    var pkg = require(path.join(root, 'package.json')).echint
+
+    if (pkg) {
+      cmd.ignore = cmd.ignore.concat(glob.sync(pkg.ignore.join(), {
+        nodir: true
+      }))
+    }
+  } catch (e) {}
+}
+
 // files to check
 if (!cmd.args.length) {
   cmd.args = glob.sync(DEFAULT_PATTERN, {
     nodir: true,
-    ignore: DEFAULT_IGNORE_PATTERNS
+    ignore: cmd.ignore.concat(DEFAULT_IGNORE_PATTERNS)
   })
 }
 

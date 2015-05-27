@@ -33,6 +33,7 @@
   "dependencies": {
     "chalk": "^1.0.0",
     "commander": "^2.8.1",
+    "find-root": "^0.1.1",
     "glob": "^5.0.10",
     "lintspaces": "^0.3.2"
   }
