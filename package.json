@@ -1,7 +1,7 @@
 {
   "version": "1.0.0",
   "name": "echint",
-  "description": "Quick validation of files against .editorconfig",
+  "description": "Quick validation of files with EditorConfig",
   "author": "Ahmad Nassri <ahmad@ahmadnassri.com> (https://www.ahmadnassri.com/)",
   "homepage": "https://github.com/ahmadnassri/echint",
   "repository": "ahmadnassri/echint",

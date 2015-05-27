@@ -1,6 +1,6 @@
 # ECHint [![version][npm-version]][npm-url] [![License][npm-license]][license-url]
 
-Quick validation of files against [`.editorconfig`](http://editorconfig.org/).
+Quick validation of files with [EditorConfig](http://editorconfig.org/).
 
 [![Downloads][npm-downloads]][npm-url]
 [![Code Climate][codeclimate-quality]][codeclimate-url]
