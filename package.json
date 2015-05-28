@@ -8,6 +8,7 @@
   "license": "MIT",
   "main": "index.js",
   "bin": "index.js",
+  "preferGlobal": true,
   "keywords": [
     "echint",
     "editorconfig",
