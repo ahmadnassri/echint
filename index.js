@@ -4,9 +4,7 @@
 
 var chalk = require('chalk')
 var cmd = require('commander')
-var debug = require('debug')('echint')
-var path = require('path')
-var findRoot = require('find-root')
+var config = require('pkg-config')('echint', { root: false })
 var fs = require('fs')
 var glob = require('glob')
 var pkg = require('./package.json')
@@ -43,33 +41,16 @@ var validator = new Validator({
   ]
 })
 
-var root
+// parse ignore patterns into a file list
+if (config && config.ignore) {
+  config.ignore.forEach(function (pattern) {
+    var list = glob.sync(pattern, {
+      nodir: true
+    })
 
-try {
-  root = findRoot(process.cwd())
-} catch (e) {
-  debug(e)
-}
-
-if (root) {
-  // Add ignore patterns from the closest `package.json`
-  try {
-    var pkg = require(path.join(root, 'package.json')).echint
-
-    // parse ignore patterns into a file list
-    if (pkg && pkg.ignore) {
-      pkg.ignore.forEach(function (pattern) {
-        var list = glob.sync(pattern, {
-          nodir: true
-        })
-
-        // update list
-        cmd.ignore = cmd.ignore.concat(list)
-      })
-    }
-  } catch (e) {
-    debug(e)
-  }
+    // update list
+    cmd.ignore = cmd.ignore.concat(list)
+  })
 }
 
 // files to check
