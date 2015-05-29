@@ -209,6 +209,9 @@ Donations are welcome to help support the continuous development of this project
 
 [license-url]: https://github.com/ahmadnassri/echint/blob/master/LICENSE
 
+[travis-url]: https://travis-ci.org/ahmadnassri/echint
+[travis-image]: https://img.shields.io/travis/ahmadnassri/echint.svg?style=flat-square
+
 [npm-url]: https://www.npmjs.com/package/echint
 [npm-license]: https://img.shields.io/npm/l/echint.svg?style=flat-square
 [npm-version]: https://img.shields.io/npm/v/echint.svg?style=flat-square
@@ -216,6 +219,7 @@ Donations are welcome to help support the continuous development of this project
 
 [codeclimate-url]: https://codeclimate.com/github/ahmadnassri/echint
 [codeclimate-quality]: https://img.shields.io/codeclimate/github/ahmadnassri/echint.svg?style=flat-square
+[codeclimate-coverage]: https://img.shields.io/codeclimate/coverage/github/ahmadnassri/echint.svg?style=flat-square
 
 [david-url]: https://david-dm.org/ahmadnassri/echint
 [david-image]: https://img.shields.io/david/ahmadnassri/echint.svg?style=flat-square
