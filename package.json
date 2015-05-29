@@ -6,8 +6,8 @@
   "homepage": "https://github.com/ahmadnassri/echint",
   "repository": "ahmadnassri/echint",
   "license": "MIT",
-  "main": "index.js",
-  "bin": "index.js",
+  "main": "lib/index",
+  "bin": "bin/echint",
   "preferGlobal": true,
   "keywords": [
     "echint",
@@ -20,22 +20,43 @@
     "node": ">=0.10"
   },
   "files": [
-    "index.js"
+    "bin",
+    "lib"
   ],
   "bugs": {
     "url": "https://github.com/ahmadnassri/echint/issues"
   },
   "scripts": {
     "pretest": "standard",
-    "test": "node index"
+    "test": "mocha",
+    "posttest": "npm run coverage",
+    "coverage": "istanbul cover --dir coverage _mocha -- -R dot",
+    "codeclimate": "codeclimate < coverage/lcov.info"
+  },
+  "echint": {
+    "ignore": [
+      "coverage/**",
+      "test/fixtures/**"
+    ]
+  },
+  "standard": {
+    "ignore": [
+      "test/fixtures/**"
+    ]
   },
   "devDependencies": {
-    "standard": "^3.11.1"
+    "codeclimate-test-reporter": "0.0.4",
+    "echint": "^1.1.3",
+    "istanbul": "^0.3.14",
+    "mocha": "^2.2.5",
+    "should": "^6.0.3",
+    "standard": "^3.13.1"
   },
   "dependencies": {
     "chalk": "^1.0.0",
     "commander": "^2.8.1",
     "debug": "^2.2.0",
+    "dezalgo": "^1.0.2",
     "glob": "^5.0.10",
     "lintspaces": "^0.3.2",
     "pkg-config": "^1.0.0"
