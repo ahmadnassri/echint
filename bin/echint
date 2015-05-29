@@ -15,7 +15,7 @@ function collect (val, memo) {
 cmd
   .version(pkg.version)
   .usage('[options] <file ...>')
-  .option('-c, --config [path]', 'specify path for config file (defaults to ./.editorconfig)', '.editorconfig')
+  .option('-c, --config [path]', 'specify path for config file (defaults to ./.editorconfig)')
   .option('-i, --ignore [file]', 'files to ignore', collect)
   .option('-p, --skip-package', 'whether to skip reading config info from package.json')
   .option('-q, --quiet', 'shhh', false)

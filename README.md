@@ -1,9 +1,11 @@
 # ECHint [![version][npm-version]][npm-url] [![License][npm-license]][license-url]
 
-Quick validation of files with [EditorConfig](http://editorconfig.org/).
+> Quick validation of files with [EditorConfig](http://editorconfig.org/).
 
+[![Build Status][travis-image]][travis-url]
 [![Downloads][npm-downloads]][npm-url]
 [![Code Climate][codeclimate-quality]][codeclimate-url]
+[![Coverage Status][codeclimate-coverage]][codeclimate-url]
 [![Dependencies][david-image]][david-url]
 
 ## Install
@@ -82,24 +84,114 @@ Sometimes you need to ignore additional folders or specific minfied files. To do
     -h, --help           output usage information
     -V, --version        output the version number
     -c, --config [path]  specify path for config file (defaults to ./.editorconfig)
+    -i, --ignore [file]  files to ignore
+    -p, --skip-package   whether to skip reading config info from package.json
+    -q, --quiet          shhh
+    -v, --verbose        detailed errors
 
 ```
 
-###### Example
-
+###### Examples
 
 ```shell
 # run with defaults
 $ echint
 
 # run on a subset of files
-$ echint *.js *.md
+$ echint *.js *.md --verbose
 
 # ignore some files
-$ echint * --ignore *.md
+$ echint * --ignore *.md  --verbose
 
 # use custom config file path
-$ echint --config ~/.editorconfig
+$ echint --config ~/.editorconfig  --verbose
+```
+
+## API
+
+### `echint()`
+
+> validate everything in current directory
+
+### `echint(files, [, options [, callback]]])`
+
+returns `true` | `false`
+
+#### Parameters
+
+| name        | type    | description                               | required | default      |
+| ----------- | ------- | ----------------------------------------- | -------- | ------------ |
+| `files`     | `mixed` | manually defined list of files to process | `no`     | `**/*`       |
+| `options`   | `mixed` | see [`options`](#options)                 | `no`     |              |
+| `callback`  | `mixed` | see [`callback`](#callback)               | `no`     | `undefined`  |
+
+#### Options
+
+| name          | type      | description                                 | required | default                |
+| ------------- | --------- | ------------------------------------------- | -------- | ---------------------- |
+| `config`      | `string`  | path to `.editorconfig` file                | `no`     | `**/*`                 |
+| `ignore`      | `array`   | array of files & patterns to ignore         | `no`     | `['node_modules/**']`  |
+| `pattern`     | `string`  | pattern of file to process                  | `no`     | `**/*`                 |
+| `readPackage` | `boolean` | read additional options from `package.json` | `no`     | `true`                 |
+
+#### Callback
+
+pass a callback with the following signature:
+
+```js
+function (errors, result) {
+  /* typeof errors === object */
+  /* typeof result === boolean */
+
+  /*
+    errors = {
+      'fileName': {
+        lineNumber: [
+          error details
+        ]
+      }
+    }
+  */
+}
+```
+
+###### Examples
+
+```js
+var echint = require('echint')
+
+var files = [
+  'path/to/file.js',
+  'path/to/file.css'
+])
+
+var options = {
+  config: 'path/to/.editorconfig'
+}
+
+function done (errors, valid) {
+  if (!valid) {
+    console.log(errors)
+  }
+}
+
+// with defaults
+echint()
+
+// with file list
+echint(files)
+
+// with options
+echint(options)
+
+// with callback
+echint(done)
+
+// all together!
+echint(files, done)
+echint(files, options)
+echint(files, options, done)
+echint(options, done)
 ```
 
 ## Support
