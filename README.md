@@ -35,7 +35,7 @@ $ echint *.js docs/**/*.md
 
 The path `node_modules/**` and hidden files/folders (beginning with `.`) are automatically excluded when looking for files to check.
 
-Sometimes you need to ignore additional folders or specific minfied files. To do that, add a `echint.ignore` property to `package.json`:
+Sometimes you need to ignore additional folders or specific minified files. To do that, add a `echint.ignore` property to `package.json`:
 
 ```json
 "echint": {
@@ -44,6 +44,23 @@ Sometimes you need to ignore additional folders or specific minfied files. To do
     "**/coverage/**"
   ]
 }
+```
+
+### use your ENV
+
+echint uses [`dotenv`](https://www.npmjs.com/package/dotenv) to load the following environment config values:
+
+| name                  | type      | description                                                         |
+| --------------------- | --------- | ------------------------------------------------------------------- |
+| `ECHINT_CONFIG`       | `string`  | path to `.editorconfig` file                                        |
+| `ECHINT_IGNORE`       | `string`  | pattern of files to ignore                                          |
+| `ECHINT_PATTERN`      | `string`  | pattern of file to process                                          |
+| `ECHINT_READ_PACKAGE` | `string`  | read additional options from `package.json` *(`"true"`, `"false"`)* |
+
+you can create a local `.env` or `.env.[NODE_ENV]` file to modify echint's default behavior *(where `NODE_ENV` is the name of your environment)*, or you can test this directly from the shell:
+
+```shell
+$ ECHINT_CONFIG=**/* echint *.js docs/**/*.md
 ```
 
 ### include in your tests
@@ -127,12 +144,12 @@ returns `true` | `false`
 
 #### Options
 
-| name          | type      | description                                 | required | default                |
-| ------------- | --------- | ------------------------------------------- | -------- | ---------------------- |
-| `config`      | `string`  | path to `.editorconfig` file                | `no`     | `**/*`                 |
-| `ignore`      | `array`   | array of files & patterns to ignore         | `no`     | `['node_modules/**']`  |
-| `pattern`     | `string`  | pattern of file to process                  | `no`     | `**/*`                 |
-| `readPackage` | `boolean` | read additional options from `package.json` | `no`     | `true`                 |
+| name          | type      | description                                 | required | default                                |
+| ------------- | --------- | ------------------------------------------- | -------- | -------------------------------------- |
+| `config`      | `string`  | path to `.editorconfig` file                | `no`     | `**/*`                                 |
+| `ignore`      | `array`   | array of files & patterns to ignore         | `no`     | `['node_modules/**', 'coverage/**',]`  |
+| `pattern`     | `string`  | pattern of file to process                  | `no`     | `**/*`                                 |
+| `readPackage` | `boolean` | read additional options from `package.json` | `no`     | `true`                                 |
 
 #### Callback
 
@@ -205,7 +222,7 @@ Donations are welcome to help support the continuous development of this project
 
 ## License
 
-[MIT](LICENSE) &copy; [Ahmad Nassri](https://www.ahmadnassri.com)
+[ISC License](LICENSE) &copy; [Ahmad Nassri](https://www.ahmadnassri.com/)
 
 [license-url]: https://github.com/ahmadnassri/echint/blob/master/LICENSE
 

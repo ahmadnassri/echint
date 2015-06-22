@@ -135,4 +135,19 @@ describe('echint', function () {
       done()
     })
   })
+
+  it('should read from environment variables', function (done) {
+    process.env.ECHINT_CONFIG = 'test/fixtures/.config'
+    process.env.ECHINT_IGNORE = 'test/fixtures/invalid*'
+    process.env.ECHINT_PATTERN = 'test/fixtures/*'
+
+    echint({
+      readPackage: false
+    }, function (errors, valid) {
+      should.not.exist(errors)
+      valid.should.be.true
+
+      done()
+    })
+  })
 })

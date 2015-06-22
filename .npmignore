@@ -1,0 +1,6 @@
+.editorconfig
+.env*
+.jshintrc
+.travis.yml
+test
+!.env.example
