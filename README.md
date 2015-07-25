@@ -41,7 +41,7 @@ Sometimes you need to ignore additional folders or specific minified files. To d
 "echint": {
   "ignore": [
     "**/out/**",
-    "**/coverage/**"
+    "**/build/**"
   ]
 }
 ```
@@ -144,12 +144,12 @@ returns `true` | `false`
 
 #### Options
 
-| name          | type      | description                                 | required | default                                                      |
-| ------------- | --------- | ------------------------------------------- | -------- | ------------------------------------------------------------ |
-| `config`      | `string`  | path to `.editorconfig` file                | `no`     | `**/*`                                                       |
-| `ignore`      | `array`   | array of files & patterns to ignore         | `no`     | `['bower_components/**', 'node_modules/**', 'coverage/**',]` |
-| `pattern`     | `string`  | pattern of file to process                  | `no`     | `**/*`                                                       |
-| `readPackage` | `boolean` | read additional options from `package.json` | `no`     | `true`                                                       |
+| name          | type      | description                                 | required | default                                                                              |
+| ------------- | --------- | ------------------------------------------- | -------- | ------------------------------------------------------------------------------------ |
+| `config`      | `string`  | path to `.editorconfig` file                | `no`     | `**/*`                                                                               |
+| `ignore`      | `array`   | array of files & patterns to ignore         | `no`     | `['coverage/**', 'node_modules/**', 'bower_components/**', '**[.jpg,.png,.gif,.ico]` |
+| `pattern`     | `string`  | pattern of file to process                  | `no`     | `**/*`                                                                               |
+| `readPackage` | `boolean` | read additional options from `package.json` | `no`     | `true`                                                                               |
 
 #### Callback
 
