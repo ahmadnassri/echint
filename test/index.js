@@ -125,7 +125,6 @@ describe('echint', function () {
       pattern: 'test/fixtures/*',
       readPackage: false
     }, function (errors, valid) {
-
       valid.should.be.false
       errors.should.be.an.Object
 
