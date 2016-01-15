@@ -44,7 +44,7 @@
     ]
   },
   "devDependencies": {
-    "codeclimate-test-reporter": "0.0.4",
+    "codeclimate-test-reporter": "0.2.0",
     "istanbul": "^0.3.15",
     "mocha": "^2.2.5",
     "should": "^7.0.1",
