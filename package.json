@@ -55,7 +55,7 @@
     "commander": "^2.9.0",
     "debug-log": "^1.0.0",
     "dezalgo": "^1.0.3",
-    "dotenv": "^1.2.0",
+    "dotenv": "^2.0.0",
     "glob": "^6.0.4",
     "lintspaces": "^0.3.3",
     "pkg-config": "^1.1.0",
