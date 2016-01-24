@@ -19,7 +19,7 @@ cmd
   .option('-i, --ignore [file]', 'files to ignore', collect)
   .option('-p, --skip-package', 'whether to skip reading config info from package.json')
   .option('-q, --quiet', 'shhh', false)
-  .option('-v, --verbose', 'detailed errors', false)
+  .option('-v, --verbose', 'detailed errors', true)
   .parse(process.argv)
 
 // add files to check
