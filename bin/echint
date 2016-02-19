@@ -18,8 +18,8 @@ cmd
   .option('-c, --config [path]', 'specify path for config file (defaults to ./.editorconfig)')
   .option('-i, --ignore [file]', 'files to ignore', collect)
   .option('-p, --skip-package', 'whether to skip reading config info from package.json')
-  .option('-q, --quiet', 'shhh', false)
-  .option('-v, --verbose', 'detailed errors', true)
+  .option('-q, --quiet', 'shhh')
+  .option('-v, --verbose', 'detailed errors')
   .parse(process.argv)
 
 // add files to check
@@ -39,10 +39,10 @@ echint(cmd, function (errors, valid) {
 
   // print errors
   if (!cmd.quiet && !valid) {
-    console.error('%s %d files did not pass EditorConfig validation', chalk.red('Error:'), files.length)
+    console.error('%s %d file(s) did not pass EditorConfig validation', chalk.red('Error:'), files.length)
   }
 
-  if (!cmd.quiet && cmd.verbose) {
+  if (!cmd.quiet) {
     files.forEach(function (file) {
       Object.keys(errors[file]).forEach(function (number) {
         var line = errors[file][number]
