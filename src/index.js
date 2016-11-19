@@ -1,17 +1,17 @@
-'use strict'
+import dezalgo from 'dezalgo'
+import dotenv from 'dotenv'
+import fs from 'fs'
+import glob from 'glob'
+import Lintspaces from 'lintspaces'
+import path from 'path'
+import pkg from 'pkg-config'
+import { debuglog } from 'util'
 
-var debug = require('debug-log')('echint')
-var dezalgo = require('dezalgo')
-var dotenv = require('dotenv')
-var fs = require('fs')
-var glob = require('glob')
-var Lintspaces = require('lintspaces')
-var path = require('path')
-var pkg = require('pkg-config')('echint', { root: false })
-var extend = require('xtend')
+const debug = debuglog('echint')
+const config = pkg('echint', { root: false })
 
-var DEFAULT_PATTERN = '**/*'
-var DEFAULT_IGNORE_PATTERNS = [
+const DEFAULT_PATTERN = '**/*'
+const DEFAULT_IGNORE_PATTERNS = [
   'coverage/**',
   'node_modules/**',
   'bower_components/**',
@@ -21,7 +21,7 @@ var DEFAULT_IGNORE_PATTERNS = [
 dotenv.config({ silent: true })
 dotenv.config({ silent: true, path: '.env.' + process.env.NODE_ENV })
 
-module.exports = function (files, options, cb) {
+export default function (files, options, cb) {
   // organize arguments
   if (typeof arguments[1] === 'function') {
     cb = arguments[1]
@@ -40,37 +40,34 @@ module.exports = function (files, options, cb) {
   }
 
   // default values
-  var opts = {
+  const defaults = {
     config: process.env.ECHINT_CONFIG || path.join(process.cwd(), '.editorconfig'),
     ignore: process.env.ECHINT_IGNORE ? [process.env.ECHINT_IGNORE] : [],
     pattern: process.env.ECHINT_PATTERN || DEFAULT_PATTERN,
     readPackage: process.env.ECHINT_READ_PACKAGE ? (process.env.ECHINT_READ_PACKAGE === 'true') : (options ? options.readPackage : true)
   }
 
-  debug(process.env.ECHINT_READ_PACKAGE, opts.readPackage)
+  // initialize options
+  let opts = Object.assign({}, defaults)
 
   // overwrite from package.json?
-  if (opts.readPackage && pkg) {
+  if (opts.readPackage && config) {
     debug('package.json config found')
 
-    opts = extend(opts, pkg)
+    Object.assign(opts, config)
   }
 
-  // overwrite from local options
-  opts = extend(opts, options)
-
-  // extend with pkg
+  // overwrite from local options again
+  Object.assign(opts, options)
 
   debug('starting with options: config=%s ignore=%j', opts.config, opts.ignore)
 
   // parse ignore patterns into a file list
   if (opts.ignore.length) {
-    opts.ignore.forEach(function (pattern) {
+    opts.ignore.forEach(pattern => {
       debug('scanning for files matching ignore pattern "%s"', pattern)
 
-      var list = glob.sync(pattern, {
-        nodir: true
-      })
+      const list = glob.sync(pattern, { nodir: true })
 
       debug('found "%d" files to ignore', list.length)
 
@@ -80,7 +77,7 @@ module.exports = function (files, options, cb) {
   }
 
   // setup validator
-  var lintspaces = new Lintspaces({
+  const lintspaces = new Lintspaces({
     editorconfig: opts.config,
     ignores: [
       'js-comments',
@@ -106,7 +103,7 @@ module.exports = function (files, options, cb) {
   }
 
   // Run validation
-  files.forEach(function (file) {
+  files.forEach(file => {
     if (~opts.ignore.indexOf(file)) {
       debug('[%s] is ignored"', file)
       return
@@ -131,10 +128,10 @@ module.exports = function (files, options, cb) {
   })
 
   // get full list of errors
-  var errors = lintspaces.getInvalidFiles()
+  const errors = lintspaces.getInvalidFiles()
 
   // determine if test was a success
-  var valid = Object.keys(errors).length === 0
+  const valid = Object.keys(errors).length === 0
 
   if (typeof cb === 'function') {
     cb(valid ? null : errors, valid)

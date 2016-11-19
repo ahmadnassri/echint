@@ -1,5 +1,4 @@
 *.log
-.env*
-coverage
-node_modules
-!.env.example
+/lib
+/node_modules
+/.nyc_output

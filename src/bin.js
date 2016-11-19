@@ -1,22 +1,15 @@
 #!/usr/bin/env node
 
-'use strict'
-
-var chalk = require('chalk')
-var cmd = require('commander')
-var echint = require('..')
-var pkg = require('../package.json')
-
-function collect (val, memo) {
-  memo.push(val)
-  return memo
-}
+import chalk from 'chalk'
+import cmd from 'commander'
+import echint from '..'
+import pkg from '../package.json'
 
 cmd
   .version(pkg.version)
   .usage('[options] <file ...>')
   .option('-c, --config [path]', 'specify path for config file (defaults to ./.editorconfig)')
-  .option('-i, --ignore [file]', 'files to ignore', collect)
+  .option('-i, --ignore [file]', 'files to ignore', (val, memo) => { memo.push(val); return memo })
   .option('-p, --skip-package', 'whether to skip reading config info from package.json')
   .option('-q, --quiet', 'shhh')
   .option('-v, --verbose', 'detailed errors')
@@ -30,12 +23,12 @@ if (!cmd.args.length) {
 // alias
 cmd.readPackage = !cmd.skipPackage
 
-echint(cmd, function (errors, valid) {
+echint(cmd, (errors, valid) => {
   if (valid) {
     return
   }
 
-  var files = Object.keys(errors)
+  const files = Object.keys(errors)
 
   // print errors
   if (!cmd.quiet && !valid) {
@@ -43,13 +36,11 @@ echint(cmd, function (errors, valid) {
   }
 
   if (!cmd.quiet) {
-    files.forEach(function (file) {
-      Object.keys(errors[file]).forEach(function (number) {
-        var line = errors[file][number]
+    files.forEach(file => {
+      Object.keys(errors[file]).forEach(number => {
+        const line = errors[file][number]
 
-        line.forEach(function (err) {
-          console.error('  %s:%s %s', chalk.yellow(file), chalk.red(number), chalk.dim(err.message))
-        })
+        line.forEach(err => console.error('  %s:%s %s', chalk.yellow(file), chalk.red(number), chalk.dim(err.message)))
       })
     })
   }

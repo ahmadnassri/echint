@@ -1,152 +1,141 @@
-/* global describe, it */
+import echint from '../src/index'
+import { test } from 'tap'
 
-'use strict'
+const readPackage = false
 
-var echint = require('..')
-var should = require('should')
+test('should use default values', (assert) => {
+  assert.plan(1)
 
-describe('echint', function () {
-  it('should use default values', function (done) {
-    echint().should.be.true
+  assert.ok(echint())
+})
 
-    done()
+test('should use list of files', (assert) => {
+  assert.plan(1)
+
+  const result = echint([
+    'test/fixtures/invalid',
+    'test/fixtures/invalid.js',
+    'test/fixtures/valid.js'
+  ], { readPackage })
+
+  assert.notOk(result)
+})
+
+test('should match file pattern', (assert) => {
+  assert.plan(1)
+
+  const result = echint({ pattern: 'test/fixtures/*', readPackage })
+
+  assert.notOk(result)
+})
+
+test('should read custom config file', (assert) => {
+  assert.plan(1)
+
+  const result = echint({
+    config: 'test/fixtures/.config',
+    pattern: 'test/fixtures/*',
+    readPackage
   })
 
-  it('should use list of files', function (done) {
-    var result = echint([
-      'test/fixtures/invalid',
-      'test/fixtures/invalid.js',
-      'test/fixtures/valid.js'
-    ], {
-      readPackage: false
-    })
+  assert.notOk(result)
+})
 
-    result.should.be.false
+test('should ignore files when using a pattern', (assert) => {
+  assert.plan(1)
 
-    done()
+  const result = echint({
+    config: 'test/fixtures/.config',
+    ignore: ['test/fixtures/invalid*'],
+    pattern: 'test/fixtures/*',
+    readPackage
   })
 
-  it('should match file pattern', function (done) {
-    var result = echint({
-      pattern: 'test/fixtures/*',
-      readPackage: false
-    })
+  assert.ok(result)
+})
 
-    result.should.be.false
+test('should ignore none existant files', (assert) => {
+  assert.plan(1)
 
-    done()
+  const result = echint([
+    'test/fixtures/fakefile'
+  ], {
+    config: 'test/fixtures/.config',
+    pattern: 'test/fixtures/*',
+    readPackage
   })
 
-  it('should read custom config file', function (done) {
-    var result = echint({
-      config: 'test/fixtures/.config',
-      pattern: 'test/fixtures/*',
-      readPackage: false
-    })
+  assert.ok(result)
+})
 
-    result.should.be.false
+test('should ignore files when sending a list', (assert) => {
+  assert.plan(1)
 
-    done()
+  const result = echint([
+    'test/fixtures/invalid'
+  ], {
+    config: 'test/fixtures/.config',
+    ignore: ['test/fixtures/invalid'],
+    pattern: 'test/fixtures/*',
+    readPackage
   })
 
-  it('should ignore files when using a pattern', function (done) {
-    var result = echint({
-      config: 'test/fixtures/.config',
-      ignore: ['test/fixtures/invalid*'],
-      pattern: 'test/fixtures/*',
-      readPackage: false
-    })
+  assert.ok(result)
+})
 
-    result.should.be.true
+test('should ignore none files', (assert) => {
+  assert.plan(1)
 
-    done()
+  const result = echint([
+    'test/fixtures'
+  ], {
+    config: 'test/fixtures/.config',
+    pattern: 'test/fixtures/*',
+    readPackage
   })
 
-  it('should ignore none existant files', function (done) {
-    var result = echint([
-      'test/fixtures/fakefile'
-    ], {
-      config: 'test/fixtures/.config',
-      pattern: 'test/fixtures/*',
-      readPackage: false
-    })
+  assert.ok(result)
+})
 
-    result.should.be.true
+test('should use callbacks', (assert) => {
+  assert.plan(2)
 
-    done()
+  echint({
+    config: 'test/fixtures/.config',
+    ignore: ['test/fixtures/invalid*'],
+    pattern: 'test/fixtures/*',
+    readPackage
+  }, (errors, valid) => {
+    assert.equal(errors, null)
+    assert.ok(valid)
   })
+})
 
-  it('should ignore files when sending a list', function (done) {
-    var result = echint([
-      'test/fixtures/invalid'
-    ], {
-      config: 'test/fixtures/.config',
-      ignore: ['test/fixtures/invalid'],
-      pattern: 'test/fixtures/*',
-      readPackage: false
-    })
+test('should pass invalid files', (assert) => {
+  assert.plan(4)
 
-    result.should.be.true
+  echint({
+    config: 'test/fixtures/.config',
+    pattern: 'test/fixtures/*',
+    readPackage
+  }, (errors, valid) => {
+    assert.notOk(valid)
+    assert.type(errors, Object)
 
-    done()
+    assert.type(errors['test/fixtures/invalid'], Object)
+    assert.type(errors['test/fixtures/invalid.js'], Object)
   })
+})
 
-  it('should ignore none files', function (done) {
-    var result = echint([
-      'test/fixtures'
-    ], {
-      config: 'test/fixtures/.config',
-      pattern: 'test/fixtures/*',
-      readPackage: false
-    })
+test('should read from environment variables', (assert) => {
+  assert.plan(2)
 
-    result.should.be.true
+  process.env.ECHINT_CONFIG = 'test/fixtures/.config'
+  process.env.ECHINT_IGNORE = 'test/fixtures/invalid*'
+  process.env.ECHINT_PATTERN = 'test/fixtures/*'
 
-    done()
-  })
-
-  it('should use callbacks', function (done) {
-    echint({
-      config: 'test/fixtures/.config',
-      ignore: ['test/fixtures/invalid*'],
-      pattern: 'test/fixtures/*',
-      readPackage: false
-    }, function (errors, valid) {
-      should.not.exist(errors)
-      valid.should.be.true
-
-      done()
-    })
-  })
-
-  it('should pass invalid files', function (done) {
-    echint({
-      config: 'test/fixtures/.config',
-      pattern: 'test/fixtures/*',
-      readPackage: false
-    }, function (errors, valid) {
-      valid.should.be.false
-      errors.should.be.an.Object
-
-      errors['test/fixtures/invalid'].should.be.an.Object
-      errors['test/fixtures/invalid.js'].should.be.an.Object
-
-      done()
-    })
-  })
-
-  it('should read from environment variables', function (done) {
-    process.env.ECHINT_CONFIG = 'test/fixtures/.config'
-    process.env.ECHINT_IGNORE = 'test/fixtures/invalid*'
-    process.env.ECHINT_PATTERN = 'test/fixtures/*'
-
-    echint({
-      readPackage: false
-    }, function (errors, valid) {
-      should.not.exist(errors)
-      valid.should.be.true
-
-      done()
-    })
+  echint({ readPackage }, (errors, valid) => {
+    assert.equal(errors, null)
+    assert.ok(valid)
   })
 })
