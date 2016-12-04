@@ -47,6 +47,18 @@ Sometimes you need to ignore additional folders or specific minified files. To d
 }
 ```
 
+### Can I use a sharable configuration?
+
+Yes, you may prefer to check your code against a centralized `.editorconfig`. To do that, add a `echint.extends` property to `package.json`:
+
+```json
+"echint": {
+  "extends": "echint-config-some-config"
+}
+```
+
+echint will use the `main` property or `.editorconfig` file from that package as the configuration. The `echint-config-` prefix will be added automatically if it is not already present.
+
 ### use your ENV
 
 echint uses [`dotenv`](https://www.npmjs.com/package/dotenv) to load the following environment config values:

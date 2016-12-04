@@ -60,6 +60,16 @@ export default function (files, options, cb) {
   // overwrite from local options again
   Object.assign(opts, options)
 
+  if (opts.extends) {
+    debug('extends found')
+
+    let extendsDir = path.join(process.cwd(), 'node_modules', opts.extends.replace(/^(echint-config-)?/, 'echint-config-'))
+
+    let extendsMain = pkg('main', { cwd: extendsDir, root: false })
+
+    opts.config = path.join(extendsDir, extendsMain || '.editorconfig')
+  }
+
   debug('starting with options: config=%s ignore=%j', opts.config, opts.ignore)
 
   // parse ignore patterns into a file list

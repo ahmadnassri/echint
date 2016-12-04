@@ -139,3 +139,15 @@ test('should read from environment variables', (assert) => {
     assert.ok(valid)
   })
 })
+
+test('should read sharable config file', (assert) => {
+  assert.plan(1)
+
+  const result = echint({
+    extends: 'jquery',
+    pattern: 'test/fixtures/*',
+    readPackage
+  })
+
+  assert.ok(result)
+})
