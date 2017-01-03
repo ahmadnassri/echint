@@ -47,6 +47,7 @@
   "echint": {
     "ignore": [
       "lib/**",
+      "node_modules/**",
       "test/fixtures/**"
     ]
   },
