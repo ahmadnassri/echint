@@ -15,7 +15,7 @@ const DEFAULT_IGNORE_PATTERNS = [
   'coverage/**',
   'node_modules/**',
   'bower_components/**',
-  '**[.jpg,.png,.gif,.ico]'
+  '**/*.{jpg,png,gif,ico}'
 ]
 
 dotenv.config({ silent: true })
