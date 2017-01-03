@@ -3,6 +3,7 @@ import dotenv from 'dotenv'
 import fs from 'fs'
 import glob from 'glob'
 import Lintspaces from 'lintspaces'
+import minimatch from 'minimatch'
 import path from 'path'
 import pkg from 'pkg-config'
 import { debuglog } from 'util'
@@ -42,7 +43,7 @@ export default function (files, options, cb) {
   // default values
   const defaults = {
     config: process.env.ECHINT_CONFIG || path.join(process.cwd(), '.editorconfig'),
-    ignore: process.env.ECHINT_IGNORE ? [process.env.ECHINT_IGNORE] : [],
+    ignore: process.env.ECHINT_IGNORE ? [process.env.ECHINT_IGNORE] : DEFAULT_IGNORE_PATTERNS,
     pattern: process.env.ECHINT_PATTERN || DEFAULT_PATTERN,
     readPackage: process.env.ECHINT_READ_PACKAGE ? (process.env.ECHINT_READ_PACKAGE === 'true') : (options ? options.readPackage : true)
   }
@@ -72,20 +73,6 @@ export default function (files, options, cb) {
 
   debug('starting with options: config=%s ignore=%j', opts.config, opts.ignore)
 
-  // parse ignore patterns into a file list
-  if (opts.ignore.length) {
-    opts.ignore.forEach(pattern => {
-      debug('scanning for files matching ignore pattern "%s"', pattern)
-
-      const list = glob.sync(pattern, { nodir: true })
-
-      debug('found "%d" files to ignore', list.length)
-
-      // update list
-      opts.ignore = opts.ignore.concat(list)
-    })
-  }
-
   // setup validator
   const lintspaces = new Lintspaces({
     editorconfig: opts.config,
@@ -107,14 +94,17 @@ export default function (files, options, cb) {
     debug('no file list given, using match pattern instead: "%s"', opts.pattern)
 
     files = glob.sync(opts.pattern, {
-      ignore: opts.ignore.concat(DEFAULT_IGNORE_PATTERNS),
+      ignore: opts.ignore,
       nodir: true
     })
+
+    // since glob already ignored files for us, do NOT check later
+    opts.ignore = []
   }
 
   // Run validation
   files.forEach(file => {
-    if (~opts.ignore.indexOf(file)) {
+    if (opts.ignore.some(pattern => minimatch(file, pattern))) {
       debug('[%s] is ignored"', file)
       return
     }
