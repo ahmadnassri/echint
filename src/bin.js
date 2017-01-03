@@ -9,7 +9,7 @@ cmd
   .version(pkg.version)
   .usage('[options] <file ...>')
   .option('-c, --config [path]', 'specify path for config file (defaults to ./.editorconfig)')
-  .option('-i, --ignore [file]', 'files to ignore', (val, memo) => { memo.push(val); return memo })
+  .option('-i, --ignore [file]', 'files to ignore', (val, memo) => { if (!memo) return [val]; memo.push(val); return memo })
   .option('-p, --skip-package', 'whether to skip reading config info from package.json')
   .option('-q, --quiet', 'shhh')
   .option('-v, --verbose', 'detailed errors')
