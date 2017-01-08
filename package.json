@@ -48,7 +48,7 @@
   "devDependencies": {
     "echint-config-jquery": "^1.0.0",
     "snazzy": "^5.0.0",
-    "tap": "^8.0.1"
+    "tap": "^9.0.0"
   },
   "dependencies": {
     "chalk": "^1.1.3",
