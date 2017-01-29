@@ -170,12 +170,12 @@ pass a callback with the following signature:
 
 ```js
 function (errors, result) {
-  /* typeof errors === object */
-  /* typeof result === boolean */
+  /* typeof errors === 'object' */
+  /* typeof result === 'boolean' */
 
   /*
     errors = {
-      'fileName': {
+      fileName: {
         lineNumber: [
           error details
         ]
@@ -193,7 +193,7 @@ import echint from 'echint'
 const files = [
   'path/to/file.js',
   'path/to/file.css'
-])
+]
 
 const options = {
   config: 'path/to/.editorconfig'
