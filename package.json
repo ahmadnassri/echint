@@ -30,7 +30,7 @@
     "url": "https://github.com/ahmadnassri/echint/issues"
   },
   "scripts": {
-    "lint": "snazzy && echint",
+    "lint": "snazzy && ./lib/bin.js",
     "pretest": "npm run lint",
     "test": "tap test",
     "coverage": "tap test --reporter silent --coverage"
