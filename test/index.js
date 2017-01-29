@@ -1,5 +1,7 @@
-import echint from '../src/index'
-import { test } from 'tap'
+'use strict'
+
+const echint = require('..')
+const test = require('tap').test
 
 const readPackage = false
 
@@ -14,8 +16,7 @@ test('should use list of files', (assert) => {
 
   const result = echint([
     'test/fixtures/invalid',
-    'test/fixtures/invalid.js',
-    'test/fixtures/valid.js'
+    'test/fixtures/valid'
   ], { readPackage })
 
   assert.notOk(result)
@@ -112,7 +113,7 @@ test('should use callbacks', (assert) => {
 })
 
 test('should pass invalid files', (assert) => {
-  assert.plan(4)
+  assert.plan(3)
 
   echint({
     config: 'test/fixtures/.config',
@@ -123,7 +124,6 @@ test('should pass invalid files', (assert) => {
     assert.type(errors, Object)
 
     assert.type(errors['test/fixtures/invalid'], Object)
-    assert.type(errors['test/fixtures/invalid.js'], Object)
   })
 })
 
