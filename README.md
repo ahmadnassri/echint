@@ -8,6 +8,7 @@
 [![Coverage Status][codeclimate-coverage]][codeclimate-url]
 [![Dependency Status][dependencyci-image]][dependencyci-url]
 [![Dependencies][david-image]][david-url]
+[![Commitizen friendly][commitizen-image]][commitizen-url]
 
 ## Install
 
@@ -249,3 +250,6 @@ echint(options, done)
 
 [dependencyci-url]: https://dependencyci.com/github/ahmadnassri/echint
 [dependencyci-image]: https://dependencyci.com/github/ahmadnassri/echint/badge?style=flat-square
+
+[commitizen-image]: https://img.shields.io/badge/commitizen-friendly-brightgreen.svg
+[commitizen-url]: http://commitizen.github.io/cz-cli/
