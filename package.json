@@ -30,8 +30,6 @@
     "url": "https://github.com/ahmadnassri/echint/issues"
   },
   "scripts": {
-    "lint": "snazzy && ./lib/bin.js",
-    "pretest": "npm run lint",
     "test": "tap test",
     "coverage": "tap test --reporter silent --coverage"
   },
@@ -48,16 +46,15 @@
   },
   "devDependencies": {
     "echint-config-jquery": "^1.0.0",
-    "snazzy": "^6.0.0",
     "tap": "12.6.0"
   },
   "dependencies": {
-    "chalk": "^2.0.0",
-    "commander": "^2.9.0",
+    "chalk": "^2.4.2",
+    "commander": "^2.19.0",
     "dotenv": "^7.0.0",
-    "glob": "^7.1.1",
+    "glob": "^7.1.3",
     "lintspaces": "0.6.3",
-    "minimatch": "^3.0.3",
+    "minimatch": "^3.0.4",
     "pkg-config": "^1.1.1"
   }
 }
