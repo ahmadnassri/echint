@@ -30,8 +30,13 @@
     "url": "https://github.com/ahmadnassri/echint/issues"
   },
   "scripts": {
-    "test": "tap test",
-    "coverage": "tap test --reporter silent --coverage"
+    "lint:deps": "npx updated",
+    "lint:ec": "node lib/bin.js",
+    "lint:md": "npx remark --quiet --frail .",
+    "lint": "npx run-p lint:*",
+    "open:coverage": "opener coverage/lcov-report/index.html",
+    "test:tap": "tap test --coverage-report=lcov --no-browser",
+    "test": "npx run-p test:*"
   },
   "standard": {
     "ignore": [
