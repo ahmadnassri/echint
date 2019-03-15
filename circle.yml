@@ -1,0 +1,39 @@
+version: 2.1
+
+orbs:
+  base: ahmadnassri/base@1.3.3
+  node: ahmadnassri/node@1.3.3
+
+workflows:
+  version: 2
+  default:
+    jobs:
+      - base/clone
+
+      - node/install:
+          requires: [ base/clone ]
+
+      - node/lint:
+          requires: [ base/clone ]
+
+      - node/test:
+          name: test/10
+          requires: [ base/clone ]
+          tag: '10'
+
+      - node/test:
+          name: test/8
+          requires: [ base/clone ]
+          tag: '8'
+
+      - node/test:
+          name: test/7
+          requires: [ base/clone ]
+          tag: '7'
+
+      - node/release:
+          context: semantic-release
+          requires: [ node/lint, test/7, test/8, test/10 ]
+          filters:
+            branches:
+              only: master
