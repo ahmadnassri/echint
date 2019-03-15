@@ -26,14 +26,9 @@ workflows:
           requires: [ node/install ]
           tag: '8'
 
-      - node/test:
-          name: test/7
-          requires: [ node/install ]
-          tag: '7'
-
       - node/release:
           context: semantic-release
-          requires: [ node/lint, test/7, test/8, test/10 ]
+          requires: [ node/lint, test/8, test/10 ]
           filters:
             branches:
               only: master
