@@ -1,13 +1,8 @@
-# ECHint [![version][npm-version]][npm-url] [![License][npm-license]][license-url]
+# ECHint
+
+[![License][license-image]][license-url] [![version][npm-image]][npm-url] [![Build Status][circle-image]][circle-url]
 
 > Quick validation of files with [EditorConfig](http://editorconfig.org/).
-
-[![Build Status][travis-image]][travis-url]
-[![Downloads][npm-downloads]][npm-url]
-[![Code Climate][codeclimate-quality]][codeclimate-url]
-[![Coverage Status][codeclimate-coverage]][codeclimate-url]
-[![Dependency Status][dependencyci-image]][dependencyci-url]
-[![Dependencies][david-image]][david-url]
 
 ## Install
 
@@ -230,22 +225,11 @@ echint(options, done)
 > Github: [@ahmadnassri](https://github.com/ahmadnassri) &nbsp;&middot;&nbsp;
 > Twitter: [@ahmadnassri](https://twitter.com/ahmadnassri)
 
-[license-url]: http://choosealicense.com/licenses/isc/
+[license-url]: LICENSE
+[license-image]: https://img.shields.io/github/license/ahmadnassri/echint.svg?style=for-the-badge&logo=circleci
 
-[travis-url]: https://travis-ci.org/ahmadnassri/echint
-[travis-image]: https://img.shields.io/travis/ahmadnassri/echint.svg?style=flat-square
+[circle-url]: https://circleci.com/gh/ahmadnassri/workflows/echint
+[circle-image]: https://img.shields.io/circleci/project/github/ahmadnassri/echint/master.svg?style=for-the-badge&logo=circleci
 
 [npm-url]: https://www.npmjs.com/package/echint
-[npm-license]: https://img.shields.io/npm/l/echint.svg?style=flat-square
-[npm-version]: https://img.shields.io/npm/v/echint.svg?style=flat-square
-[npm-downloads]: https://img.shields.io/npm/dm/echint.svg?style=flat-square
-
-[codeclimate-url]: https://codeclimate.com/github/ahmadnassri/echint
-[codeclimate-quality]: https://img.shields.io/codeclimate/github/ahmadnassri/echint.svg?style=flat-square
-[codeclimate-coverage]: https://img.shields.io/codeclimate/coverage/github/ahmadnassri/echint.svg?style=flat-square
-
-[david-url]: https://david-dm.org/ahmadnassri/echint
-[david-image]: https://img.shields.io/david/ahmadnassri/echint.svg?style=flat-square
-
-[dependencyci-url]: https://dependencyci.com/github/ahmadnassri/echint
-[dependencyci-image]: https://dependencyci.com/github/ahmadnassri/echint/badge?style=flat-square
+[npm-image]: https://img.shields.io/npm/v/echint.svg?style=for-the-badge&logo=npm
