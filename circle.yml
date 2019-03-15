@@ -18,17 +18,17 @@ workflows:
 
       - node/test:
           name: test/10
-          requires: [ base/clone ]
+          requires: [ node/install ]
           tag: '10'
 
       - node/test:
           name: test/8
-          requires: [ base/clone ]
+          requires: [ node/install ]
           tag: '8'
 
       - node/test:
           name: test/7
-          requires: [ base/clone ]
+          requires: [ node/install ]
           tag: '7'
 
       - node/release:
