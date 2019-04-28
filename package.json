@@ -50,7 +50,7 @@
   },
   "devDependencies": {
     "echint-config-jquery": "^1.0.0",
-    "tap": "12.6.0"
+    "tap": "12.7.0"
   },
   "dependencies": {
     "chalk": "^2.4.2",
